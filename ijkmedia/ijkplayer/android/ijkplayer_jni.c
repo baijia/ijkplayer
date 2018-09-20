@@ -28,9 +28,9 @@
 #include <unistd.h>
 #include "j4a/class/java/util/ArrayList.h"
 #include "j4a/class/android/os/Bundle.h"
-#include "j4a/class/tv/danmaku/ijk/media/player/IjkMediaPlayer.h"
-#include "j4a/class/tv/danmaku/ijk/media/player/misc/IMediaDataSource.h"
-#include "j4a/class/tv/danmaku/ijk/media/player/misc/IAndroidIO.h"
+#include "j4a/class/tv/danmaku/ijk/media/bjplayer/IjkMediaPlayer.h"
+#include "j4a/class/tv/danmaku/ijk/media/bjplayer/misc/IMediaDataSource.h"
+#include "j4a/class/tv/danmaku/ijk/media/bjplayer/misc/IAndroidIO.h"
 #include "ijksdl/ijksdl_log.h"
 #include "../ff_ffplay.h"
 #include "ffmpeg_api_jni.h"
@@ -40,9 +40,9 @@
 #include "ijksdl/android/ijksdl_codec_android_mediadef.h"
 #include "ijkavformat/ijkavformat.h"
 
-#define JNI_MODULE_PACKAGE      "tv/danmaku/ijk/media/player"
-#define JNI_CLASS_IJKPLAYER     "tv/danmaku/ijk/media/player/IjkMediaPlayer"
-#define JNI_IJK_MEDIA_EXCEPTION "tv/danmaku/ijk/media/player/exceptions/IjkMediaException"
+#define JNI_MODULE_PACKAGE      "tv/danmaku/ijk/media/bjplayer"
+#define JNI_CLASS_IJKPLAYER     "tv/danmaku/ijk/media/bjplayer/IjkMediaPlayer"
+#define JNI_IJK_MEDIA_EXCEPTION "tv/danmaku/ijk/media/bjplayer/exceptions/IjkMediaException"
 
 #define IJK_CHECK_MPRET_GOTO(retval, env, label) \
     JNI_CHECK_GOTO((retval != EIJK_INVALID_STATE), env, "java/lang/IllegalStateException", NULL, label); \
@@ -1140,8 +1140,8 @@ static JNINativeMethod g_methods[] = {
         (void *) IjkMediaPlayer_setDataSourceAndHeaders
     },
     { "_setDataSourceFd",       "(I)V",     (void *) IjkMediaPlayer_setDataSourceFd },
-    { "_setDataSource",         "(Ltv/danmaku/ijk/media/player/misc/IMediaDataSource;)V", (void *)IjkMediaPlayer_setDataSourceCallback },
-    { "_setAndroidIOCallback",  "(Ltv/danmaku/ijk/media/player/misc/IAndroidIO;)V", (void *)IjkMediaPlayer_setAndroidIOCallback },
+    { "_setDataSource",         "(Ltv/danmaku/ijk/media/bjplayer/misc/IMediaDataSource;)V", (void *)IjkMediaPlayer_setDataSourceCallback },
+    { "_setAndroidIOCallback",  "(Ltv/danmaku/ijk/media/bjplayer/misc/IAndroidIO;)V", (void *)IjkMediaPlayer_setAndroidIOCallback },
 
     { "_setVideoSurface",       "(Landroid/view/Surface;)V", (void *) IjkMediaPlayer_setVideoSurface },
     { "_prepareAsync",          "()V",      (void *) IjkMediaPlayer_prepareAsync },

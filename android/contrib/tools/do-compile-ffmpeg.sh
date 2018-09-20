@@ -347,11 +347,11 @@ do
 done
 
 $CC -lm -lz -shared --sysroot=$FF_SYSROOT -Wl,--no-undefined -Wl,-z,noexecstack $FF_EXTRA_LDFLAGS \
-    -Wl,-soname,libijkffmpeg.so \
+    -Wl,-soname,libijkbjffmpeg.so \
     $FF_C_OBJ_FILES \
     $FF_ASM_OBJ_FILES \
     $FF_DEP_LIBS \
-    -o $FF_PREFIX/libijkffmpeg.so
+    -o $FF_PREFIX/libijkbjffmpeg.so
 
 mysedi() {
     f=$1
@@ -369,7 +369,7 @@ echo "--------------------"
 rm -rf $FF_PREFIX/shared
 mkdir -p $FF_PREFIX/shared/lib/pkgconfig
 ln -s $FF_PREFIX/include $FF_PREFIX/shared/include
-ln -s $FF_PREFIX/libijkffmpeg.so $FF_PREFIX/shared/lib/libijkffmpeg.so
+ln -s $FF_PREFIX/libijkbjffmpeg.so $FF_PREFIX/shared/lib/libijkbjffmpeg.so
 cp $FF_PREFIX/lib/pkgconfig/*.pc $FF_PREFIX/shared/lib/pkgconfig
 for f in $FF_PREFIX/lib/pkgconfig/*.pc; do
     # in case empty dir

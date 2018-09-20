@@ -36,8 +36,8 @@ import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import tv.danmaku.ijk.media.player.IMediaPlayer;
-import tv.danmaku.ijk.media.player.ISurfaceTextureHolder;
+import tv.danmaku.ijk.media.bjplayer.IMediaPlayer;
+import tv.danmaku.ijk.media.bjplayer.ISurfaceTextureHolder;
 
 public class SurfaceRenderView extends SurfaceView implements IRenderView {
     private MeasureHelper mMeasureHelper;

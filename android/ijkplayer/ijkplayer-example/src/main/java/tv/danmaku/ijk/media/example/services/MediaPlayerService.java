@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.bjplayer.IMediaPlayer;
 
 public class MediaPlayerService extends Service {
     private static IMediaPlayer sMediaPlayer;

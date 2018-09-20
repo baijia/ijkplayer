@@ -16,6 +16,13 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+        flavorDimensions "versionCode"
+
+        ndk {
+//            abiFilters "armeabi"
+            abiFilters "armeabi-v7a"
+//            abiFilters "arm64-v8a"
+        }
     }
     buildTypes {
         release {
@@ -46,13 +53,13 @@ dependencies {
 
     all32Compile project(':ijkplayer-armv5')
     all32Compile project(':ijkplayer-armv7a')
-    all32Compile project(':ijkplayer-x86')
+//    all32Compile project(':ijkplayer-x86')
 
     all64Compile project(':ijkplayer-armv5')
     all64Compile project(':ijkplayer-armv7a')
     all64Compile project(':ijkplayer-arm64')
-    all64Compile project(':ijkplayer-x86')
-    all64Compile project(':ijkplayer-x86_64')
+//    all64Compile project(':ijkplayer-x86')
+//    all64Compile project(':ijkplayer-x86_64')
 
     // compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     // compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
@@ -67,9 +74,9 @@ dependencies {
     // all64Compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
     // all64Compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
 
-    // armv5Compile project(':player-armv5')
-    // armv7aCompile project(':player-armv7a')
-    // arm64Compile project(':player-arm64')
+//     armv5Compile project(':player-armv5')
+//     armv7aCompile project(':player-armv7a')
+//     arm64Compile project(':player-arm64')
     // x86Compile project(':player-x86')
     // x86_64Compile project(':player-x86_64')
 }

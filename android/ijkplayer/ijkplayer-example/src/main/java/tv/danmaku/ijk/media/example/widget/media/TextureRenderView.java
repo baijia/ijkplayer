@@ -36,9 +36,9 @@ import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import tv.danmaku.ijk.media.player.IMediaPlayer;
-import tv.danmaku.ijk.media.player.ISurfaceTextureHolder;
-import tv.danmaku.ijk.media.player.ISurfaceTextureHost;
+import tv.danmaku.ijk.media.bjplayer.IMediaPlayer;
+import tv.danmaku.ijk.media.bjplayer.ISurfaceTextureHolder;
+import tv.danmaku.ijk.media.bjplayer.ISurfaceTextureHost;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class TextureRenderView extends TextureView implements IRenderView {

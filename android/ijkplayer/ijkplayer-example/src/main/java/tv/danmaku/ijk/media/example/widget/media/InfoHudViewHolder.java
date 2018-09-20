@@ -9,9 +9,9 @@ import android.widget.TableLayout;
 
 import java.util.Locale;
 
-import tv.danmaku.ijk.media.player.IMediaPlayer;
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
-import tv.danmaku.ijk.media.player.MediaPlayerProxy;
+import tv.danmaku.ijk.media.bjplayer.IMediaPlayer;
+import tv.danmaku.ijk.media.bjplayer.IjkMediaPlayer;
+import tv.danmaku.ijk.media.bjplayer.MediaPlayerProxy;
 import tv.danmaku.ijk.media.example.R;
 
 public class InfoHudViewHolder {

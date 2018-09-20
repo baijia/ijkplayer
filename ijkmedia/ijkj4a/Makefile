@@ -15,9 +15,9 @@ JAVA_SRCS = \
 	java/android/media/PlaybackParams.java \
 	java/android/os/Build.java \
 	java/android/os/Bundle.java \
-	java/tv/danmaku/ijk/media/player/misc/IMediaDataSource.java \
-	java/tv/danmaku/ijk/media/player/misc/IAndroidIO.java \
-	java/tv/danmaku/ijk/media/player/IjkMediaPlayer.java \
+	java/tv/danmaku/ijk/media/bjplayer/misc/IMediaDataSource.java \
+	java/tv/danmaku/ijk/media/bjplayer/misc/IAndroidIO.java \
+	java/tv/danmaku/ijk/media/bjplayer/IjkMediaPlayer.java \
 
 C_SRCS := $(JAVA_SRCS:java/%.java=j4a/class/%.c)
 H_SRCS := $(C_SRCS:%.c=%.h)

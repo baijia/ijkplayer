@@ -75,10 +75,10 @@ LOCAL_SRC_FILES += ijkavutil/ijktree.c
 LOCAL_SRC_FILES += ijkavutil/ijkfifo.c
 LOCAL_SRC_FILES += ijkavutil/ijkstl.cpp
 
-LOCAL_SHARED_LIBRARIES := ijkffmpeg ijksdl
+LOCAL_SHARED_LIBRARIES := ijkbjffmpeg ijkbjsdl
 LOCAL_STATIC_LIBRARIES := android-ndk-profiler ijksoundtouch
 
-LOCAL_MODULE := ijkplayer
+LOCAL_MODULE := ijkbjplayer
 
 VERSION_SH  = $(LOCAL_PATH)/version.sh
 VERSION_H   = ijkversion.h

@@ -24,7 +24,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.View;
 
-import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.bjplayer.IMediaPlayer;
 
 public interface IRenderView {
     int AR_ASPECT_FIT_PARENT = 0; // without clip

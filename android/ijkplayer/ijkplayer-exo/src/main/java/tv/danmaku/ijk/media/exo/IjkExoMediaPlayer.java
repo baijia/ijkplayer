@@ -35,10 +35,10 @@ import tv.danmaku.ijk.media.exo.demo.player.ExtractorRendererBuilder;
 import tv.danmaku.ijk.media.exo.demo.player.HlsRendererBuilder;
 import tv.danmaku.ijk.media.exo.demo.player.SmoothStreamingRendererBuilder;
 import tv.danmaku.ijk.media.exo.demo.SmoothStreamingTestMediaDrmCallback;
-import tv.danmaku.ijk.media.player.AbstractMediaPlayer;
-import tv.danmaku.ijk.media.player.IMediaPlayer;
-import tv.danmaku.ijk.media.player.MediaInfo;
-import tv.danmaku.ijk.media.player.misc.IjkTrackInfo;
+import tv.danmaku.ijk.media.bjplayer.AbstractMediaPlayer;
+import tv.danmaku.ijk.media.bjplayer.IMediaPlayer;
+import tv.danmaku.ijk.media.bjplayer.MediaInfo;
+import tv.danmaku.ijk.media.bjplayer.misc.IjkTrackInfo;
 
 public class IjkExoMediaPlayer extends AbstractMediaPlayer {
     private Context mAppContext;

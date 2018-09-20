@@ -38,8 +38,8 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
-import tv.danmaku.ijk.media.player.misc.ITrackInfo;
+import tv.danmaku.ijk.media.bjplayer.IjkMediaPlayer;
+import tv.danmaku.ijk.media.bjplayer.misc.ITrackInfo;
 import tv.danmaku.ijk.media.example.R;
 import tv.danmaku.ijk.media.example.application.Settings;
 import tv.danmaku.ijk.media.example.content.RecentMediaStorage;

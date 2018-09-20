@@ -18,12 +18,10 @@
 package tv.danmaku.ijk.media.example.widget.media;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import tv.danmaku.ijk.media.player.misc.IMediaDataSource;
+import tv.danmaku.ijk.media.bjplayer.misc.IMediaDataSource;
 
 public class FileMediaDataSource implements IMediaDataSource {
     private RandomAccessFile mFile;
