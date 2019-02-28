@@ -3479,11 +3479,14 @@ static int read_thread(void *arg)
             (!is->audio_st || (is->auddec.finished == is->audioq.serial && frame_queue_nb_remaining(&is->sampq) == 0)) &&
             (!is->video_st || (is->viddec.finished == is->videoq.serial && frame_queue_nb_remaining(&is->pictq) == 0))) {
             if (ffp->loop != 1 && (!ffp->loop || --ffp->loop)) {
+                //av_log(ffp, AV_LOG_INFO, "lzdb stream_seek start, ffp->loop:%d.\n", ffp->loop);
                 stream_seek(is, ffp->start_time != AV_NOPTS_VALUE ? ffp->start_time : 0, 0, 0);
             } else if (ffp->autoexit) {
+                //av_log(ffp, AV_LOG_INFO, "lzdb ffp->autoexit.\n");
                 ret = AVERROR_EOF;
                 goto fail;
             } else {
+                //av_log(ffp, AV_LOG_INFO, "lzdb ffp_statistic_l start, completed:%d.\n", completed);
                 ffp_statistic_l(ffp);
                 if (completed) {
                     av_log(ffp, AV_LOG_INFO, "ffp_toggle_buffering: eof\n");
@@ -4477,6 +4480,7 @@ long ffp_get_playable_duration_l(FFPlayer *ffp)
 
 void ffp_set_loop(FFPlayer *ffp, int loop)
 {
+    //av_log(NULL, AV_LOG_WARNING, "lzdb ffp_set_loop, loop:%d\n", loop);
     assert(ffp);
     if (!ffp)
         return;
@@ -4570,9 +4574,9 @@ void ffp_toggle_buffering_l(FFPlayer *ffp, int buffering_on)
         return;
 
     VideoState *is = ffp->is;
-    av_log(NULL, AV_LOG_WARNING, "lzdb ffp_toggle_buffering_l buffering_on:%d\n", buffering_on);
+    //av_log(NULL, AV_LOG_WARNING, "lzdb ffp_toggle_buffering_l, buffering_on:%d\n", buffering_on);
     if (is->paused) {
-        av_log(NULL, AV_LOG_WARNING, "lzdb ffp_toggle_buffering_l paused:%d\n", is->paused);
+        //av_log(NULL, AV_LOG_WARNING, "lzdb ffp_toggle_buffering_l, paused:%d\n", is->paused);
         return;
     }
     if (buffering_on && !is->buffering_on) {

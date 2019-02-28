@@ -327,6 +327,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             mMediaPlayer.setOnErrorListener(mErrorListener);
             mMediaPlayer.setOnInfoListener(mInfoListener);
             mMediaPlayer.setOnBufferingUpdateListener(mBufferingUpdateListener);
+            mMediaPlayer.setOnBufferingUpdateLoggerListener(mBufferingUpdateLoggerListener);
             mMediaPlayer.setOnSeekCompleteListener(mSeekCompleteListener);
             mMediaPlayer.setOnTimedTextListener(mOnTimedTextListener);
             mCurrentBufferPercentage = 0;
@@ -495,6 +496,9 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                         case IMediaPlayer.MEDIA_INFO_BUFFERING_END:
                             Log.d(TAG, "MEDIA_INFO_BUFFERING_END:");
                             break;
+                        case IMediaPlayer.MEDIA_BUFFERING_UPDATE:
+                            Log.d(TAG, "MEDIA_BUFFERING_UPDATE");
+                            break;
                         case IMediaPlayer.MEDIA_INFO_NETWORK_BANDWIDTH:
                             Log.d(TAG, "MEDIA_INFO_NETWORK_BANDWIDTH: " + arg2);
                             break;
@@ -582,6 +586,13 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private IMediaPlayer.OnBufferingUpdateListener mBufferingUpdateListener =
             new IMediaPlayer.OnBufferingUpdateListener() {
                 public void onBufferingUpdate(IMediaPlayer mp, int percent) {
+                    mCurrentBufferPercentage = percent;
+                }
+            };
+
+    private IMediaPlayer.OnBufferingUpdateLoggerListener mBufferingUpdateLoggerListener =
+            new IMediaPlayer.OnBufferingUpdateLoggerListener() {
+                public void onBufferingUpdateLog(IMediaPlayer mp, int percent, int pos, int cached) {
                     mCurrentBufferPercentage = percent;
                 }
             };
