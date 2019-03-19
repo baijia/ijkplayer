@@ -4574,11 +4574,9 @@ void ffp_toggle_buffering_l(FFPlayer *ffp, int buffering_on)
         return;
 
     VideoState *is = ffp->is;
-    //av_log(NULL, AV_LOG_WARNING, "lzdb ffp_toggle_buffering_l, buffering_on:%d\n", buffering_on);
-    if (is->paused) {
-        //av_log(NULL, AV_LOG_WARNING, "lzdb ffp_toggle_buffering_l, paused:%d\n", is->paused);
-        return;
-    }
+//    if (is->paused) {
+//        return;
+//    }
     if (buffering_on && !is->buffering_on) {
         av_log(ffp, AV_LOG_DEBUG, "ffp_toggle_buffering_l: start\n");
         is->buffering_on = 1;
