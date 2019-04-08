@@ -1037,6 +1037,7 @@ static void stream_close(FFPlayer *ffp)
 #endif
 
 #if defined(__ANDROID__)
+    av_log(NULL, AV_LOG_WARNING, "MYDEBUG stream_close soundtouch_enable=%d\n", ffp->soundtouch_enable);
     if (ffp->soundtouch_enable && is->handle != NULL) {
         ijk_soundtouch_destroy(is->handle);
     }
@@ -2579,6 +2580,7 @@ reload:
         int bytes_per_sample = av_get_bytes_per_sample(is->audio_tgt.fmt);
         resampled_data_size = len2 * is->audio_tgt.channels * bytes_per_sample;
 #if defined(__ANDROID__)
+        av_log(NULL, AV_LOG_WARNING, "MYDEBUG audio_decode_frame soundtouch_enable=%d\n", ffp->soundtouch_enable);
         if (ffp->soundtouch_enable && ffp->pf_playback_rate != 1.0f && !is->abort_request) {
             av_fast_malloc(&is->audio_new_buf, &is->audio_new_buf_size, out_size * translate_time);
             for (int i = 0; i < (resampled_data_size / 2); i++)
@@ -2643,6 +2645,7 @@ static void sdl_audio_callback(void *opaque, Uint8 *stream, int len)
     if (ffp->pf_playback_rate_changed) {
         ffp->pf_playback_rate_changed = 0;
 #if defined(__ANDROID__)
+        av_log(NULL, AV_LOG_WARNING, "MYDEBUG sdl_audio_callback soundtouch_enable=%d\n", ffp->soundtouch_enable);
         if (!ffp->soundtouch_enable) {
             SDL_AoutSetPlaybackRate(ffp->aout, ffp->pf_playback_rate);
         }
@@ -3654,6 +3657,7 @@ static VideoState *stream_open(FFPlayer *ffp, const char *filename, AVInputForma
     is->ytop    = 0;
     is->xleft   = 0;
 #if defined(__ANDROID__)
+    av_log(NULL, AV_LOG_WARNING, "MYDEBUG stream_open soundtouch_enable=%d\n", ffp->soundtouch_enable);
     if (ffp->soundtouch_enable) {
         is->handle = ijk_soundtouch_create();
     }
@@ -4172,7 +4176,9 @@ void ffp_set_option_int(FFPlayer *ffp, int opt_category, const char *name, int64
         return;
 
     AVDictionary **dict = ffp_get_opt_dict(ffp, opt_category);
-    av_dict_set_int(dict, name, value, 0);
+    MPTRACE("MYDEBUG ffp_set_option_int: name:%s, value:%d\n", name, value);
+    //av_log(ffp, AV_LOG_ERROR, "MYDEBUG ffp_set_option_int: name:%s, value:%d\n", name, value);
+    ijk_av_dict_set_int(dict, name, value, 0);
 }
 
 void ffp_set_overlay_format(FFPlayer *ffp, int chroma_fourcc)

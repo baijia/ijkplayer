@@ -181,7 +181,7 @@ void ijkmp_set_option_int(IjkMediaPlayer *mp, int opt_category, const char *name
 {
     assert(mp);
 
-    // MPTRACE("%s(%s, %"PRId64")\n", __func__, name, value);
+    MPTRACE("MYDEBUG %s(%s, %"PRId64")\n", __func__, name, value);
     pthread_mutex_lock(&mp->mutex);
     ffp_set_option_int(mp->ffplayer, opt_category, name, value);
     pthread_mutex_unlock(&mp->mutex);
