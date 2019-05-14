@@ -3084,6 +3084,7 @@ static int read_thread(void *arg)
     if (!wait_mutex) {
         av_log(NULL, AV_LOG_FATAL, "SDL_CreateMutex(): %s\n", SDL_GetError());
         ret = AVERROR(ENOMEM);
+        last_error = 9002;
         goto fail;
     }
 
@@ -3097,6 +3098,7 @@ static int read_thread(void *arg)
     if (!ic) {
         av_log(NULL, AV_LOG_FATAL, "Could not allocate context.\n");
         ret = AVERROR(ENOMEM);
+        last_error = 9003;
         goto fail;
     }
     ic->interrupt_callback.callback = decode_interrupt_cb;
@@ -3123,6 +3125,7 @@ static int read_thread(void *arg)
     if (err < 0) {
         print_error(is->filename, err);
         ret = -1;
+        last_error = 9004;
         goto fail;
     }
     ffp_notify_msg1(ffp, FFP_MSG_OPEN_INPUT);
@@ -3134,6 +3137,7 @@ static int read_thread(void *arg)
         av_log(NULL, AV_LOG_ERROR, "Option %s not found.\n", t->key);
 #ifdef FFP_MERGE
         ret = AVERROR_OPTION_NOT_FOUND;
+        last_error = 9005;
         goto fail;
 #endif
     }
@@ -3178,6 +3182,7 @@ static int read_thread(void *arg)
             av_log(NULL, AV_LOG_WARNING,
                    "%s: could not find codec parameters\n", is->filename);
             ret = -1;
+            last_error = 9006;
             goto fail;
         }
     }
@@ -3308,6 +3313,7 @@ static int read_thread(void *arg)
         av_log(NULL, AV_LOG_FATAL, "Failed to open file '%s' or configure filtergraph\n",
                is->filename);
         ret = -1;
+        last_error = 9007;
         goto fail;
     }
     if (is->audio_stream >= 0) {
@@ -3451,8 +3457,10 @@ static int read_thread(void *arg)
         if (is->queue_attachments_req) {
             if (is->video_st && (is->video_st->disposition & AV_DISPOSITION_ATTACHED_PIC)) {
                 AVPacket copy = { 0 };
-                if ((ret = av_packet_ref(&copy, &is->video_st->attached_pic)) < 0)
+                if ((ret = av_packet_ref(&copy, &is->video_st->attached_pic)) < 0) {
+                    last_error = 9008;
                     goto fail;
+                }
                 packet_queue_put(&is->videoq, &copy);
                 packet_queue_put_nullpacket(&is->videoq, is->video_stream);
             }
@@ -3487,6 +3495,7 @@ static int read_thread(void *arg)
             } else if (ffp->autoexit) {
                 //av_log(ffp, AV_LOG_INFO, "lzdb ffp->autoexit.\n");
                 ret = AVERROR_EOF;
+                last_error = 9009;
                 goto fail;
             } else {
                 //av_log(ffp, AV_LOG_INFO, "lzdb ffp_statistic_l start, completed:%d.\n", completed);
@@ -3509,7 +3518,8 @@ static int read_thread(void *arg)
                     toggle_pause(ffp, 1);
                     if (ffp->error) {
                         av_log(ffp, AV_LOG_INFO, "ffp_toggle_buffering: error: %d\n", ffp->error);
-                        ffp_notify_msg1(ffp, FFP_MSG_ERROR);
+                        //ffp_notify_msg1(ffp, FFP_MSG_ERROR);
+                        ffp_notify_msg2(ffp, FFP_MSG_ERROR, 9001);
                     } else {
                         av_log(ffp, AV_LOG_INFO, "ffp_toggle_buffering: completed: OK\n");
                         ffp_notify_msg1(ffp, FFP_MSG_COMPLETED);
