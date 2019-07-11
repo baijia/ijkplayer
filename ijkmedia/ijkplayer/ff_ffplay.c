@@ -2580,7 +2580,7 @@ reload:
         int bytes_per_sample = av_get_bytes_per_sample(is->audio_tgt.fmt);
         resampled_data_size = len2 * is->audio_tgt.channels * bytes_per_sample;
 #if defined(__ANDROID__)
-        av_log(NULL, AV_LOG_WARNING, "MYDEBUG audio_decode_frame soundtouch_enable=%d\n", ffp->soundtouch_enable);
+        //av_log(NULL, AV_LOG_WARNING, "MYDEBUG audio_decode_frame soundtouch_enable=%d\n", ffp->soundtouch_enable);
         if (ffp->soundtouch_enable && ffp->pf_playback_rate != 1.0f && !is->abort_request) {
             av_fast_malloc(&is->audio_new_buf, &is->audio_new_buf_size, out_size * translate_time);
             for (int i = 0; i < (resampled_data_size / 2); i++)
@@ -3535,15 +3535,18 @@ static int read_thread(void *arg)
             if ((ret == AVERROR_EOF || avio_feof(ic->pb)) && !is->eof) {
                 ffp_check_buffering_l(ffp);
                 pb_eof = 1;
+                //av_log(ffp, AV_LOG_ERROR, "## av_read_frame error: %ld\n",  ret);
                 // check error later
             }
             if (ic->pb && ic->pb->error) {
                 pb_eof = 1;
                 pb_error = ic->pb->error;
+                //av_log(ffp, AV_LOG_ERROR, "## av_read_frame error 0: %ld %d\n", ret, pb_error);
             }
             if (ret == AVERROR_EXIT) {
                 pb_eof = 1;
                 pb_error = AVERROR_EXIT;
+                av_log(ffp, AV_LOG_ERROR, "## av_read_frame error 1: %ld %d\n", ret, pb_error);
             }
 
             if (pb_eof) {
@@ -3564,8 +3567,11 @@ static int read_thread(void *arg)
                     packet_queue_put_nullpacket(&is->subtitleq, is->subtitle_stream);
                 is->eof = 1;
                 ffp->error = pb_error;
-                av_log(ffp, AV_LOG_ERROR, "av_read_frame error: %s\n", ffp_get_error_string(ffp->error));
-                // break;
+                int64_t current_position = ffp_get_current_position_l(ffp);
+                av_log(ffp, AV_LOG_ERROR, "## av_read_frame error 2: %d %ld\n",  pb_error, current_position);
+                ffp_notify_msg2(ffp, FFP_MSG_ERROR_SEEK0, current_position);
+                break;
+                //continue;
             } else {
                 ffp->error = 0;
             }
@@ -4438,6 +4444,7 @@ int ffp_seek_to_l(FFPlayer *ffp, long msec)
 
 long ffp_get_current_position_l(FFPlayer *ffp)
 {
+    //av_log(NULL, AV_LOG_WARNING, "lzdb current position...\n");
     assert(ffp);
     VideoState *is = ffp->is;
     if (!is || !is->ic)
@@ -4448,6 +4455,7 @@ long ffp_get_current_position_l(FFPlayer *ffp)
     if (start_time > 0 && start_time != AV_NOPTS_VALUE)
         start_diff = fftime_to_milliseconds(start_time);
 
+    //av_log(NULL, AV_LOG_WARNING, "lzdb current position:%ld\n", start_diff);
     int64_t pos = 0;
     double pos_clock = get_master_clock(is);
     if (isnan(pos_clock)) {
@@ -4455,7 +4463,7 @@ long ffp_get_current_position_l(FFPlayer *ffp)
     } else {
         pos = pos_clock * 1000;
     }
-
+    //av_log(NULL, AV_LOG_WARNING, "lzdb current position:%ld\n", pos);
     // If using REAL time and not ajusted, then return the real pos as calculated from the stream
     // the use case for this is primarily when using a custom non-seekable data source that starts
     // with a buffer that is NOT the start of the stream.  We want the get_current_position to
@@ -4468,6 +4476,7 @@ long ffp_get_current_position_l(FFPlayer *ffp)
         return 0;
 
     int64_t adjust_pos = pos - start_diff;
+    //av_log(NULL, AV_LOG_WARNING, "lzdb current position:%ld\n", adjust_pos);
     return (long)adjust_pos;
 }
 

@@ -86,7 +86,7 @@ static IjkMediaPlayer *jni_set_media_player(JNIEnv* env, jobject thiz, IjkMediaP
     pthread_mutex_unlock(&g_clazz.mutex);
 
     // NOTE: ijkmp_dec_ref may block thread
-    if (old != NULL ) {
+    if (old != NULL) {
         ijkmp_dec_ref_p(&old);
     }
 
@@ -916,6 +916,10 @@ static void message_loop_n(JNIEnv *env, IjkMediaPlayer *mp)
         case FFP_MSG_ERROR:
             MPTRACE("FFP_MSG_ERROR: %d\n", msg.arg1);
             post_event(env, weak_thiz, MEDIA_ERROR, MEDIA_ERROR_IJK_PLAYER, msg.arg1);
+            break;
+        case FFP_MSG_ERROR_SEEK0:
+            MPTRACE("FFP_MSG_ERROR_SEEK0: %d\n", msg.arg1);
+            post_event(env, weak_thiz, MEDIA_ERROR, MEDIA_ERROR_SEEK0, msg.arg1);
             break;
         case FFP_MSG_PREPARED:
             MPTRACE("FFP_MSG_PREPARED:\n");

@@ -91,7 +91,7 @@ int ijk_av_dict_set(IjkAVDictionary **pm, const char *key, const char *value,
     if (!m || (key && !copy_key) || (value && !copy_value))
         goto err_out;
 
-    av_log(NULL, NULL, "MYDEBUG ijk_av_dict_set, copy_key=%s,copy_value=%s\n", copy_key,copy_value);
+    //av_log(NULL, NULL, "MYDEBUG ijk_av_dict_set, copy_key=%s,copy_value=%s\n", copy_key,copy_value);
     if (tag) {
         if (flags & IJK_AV_DICT_DONT_OVERWRITE) {
             free(copy_key);
@@ -149,7 +149,7 @@ err_out:
 int ijk_av_dict_set_int(IjkAVDictionary **pm, const char *key, int64_t value,
                 int flags)
 {
-    av_log(NULL, NULL, "MYDEBUG ijk_av_dict_set_int.......\n");
+    //av_log(NULL, NULL, "MYDEBUG ijk_av_dict_set_int.......\n");
     char valuestr[22];
     snprintf(valuestr, sizeof(valuestr), "%"PRId64, value);
     flags &= ~IJK_AV_DICT_DONT_STRDUP_VAL;
